@@ -11,6 +11,10 @@ Created:   Jul 10 2007
 Last Mod:  Mar 08 2009
 
 http://expressionengine.com/docs/development/extensions.html
+
+Modified: Mar 31 2009 
+by Mike Kroll, imagehat.com to kill smileys with extreme prejudice.
+
 =============================================================================== */
 
 class Md_hide_smileys
@@ -119,8 +123,11 @@ class Md_hide_smileys
 			$out = $EXT->last_call;
 		}
 		
-$out = preg_replace("#<b>Glossary</b></a>[^\r\n]*</span>#", "<b>Glossary</b></a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>", $out);
-
+        $out = preg_replace("#<b>Glossary</b></a>[^\r\n]*</span>#", "<b>Glossary</b></a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>", $out);
+        
+        // IH Mod: Remove smiley divs too so the images don't load...
+        $out = preg_replace('/<div id=[\'"]smileys_.*?<\/table>.*?<\/table>[\n\r]*<\/div>/si', '', $out);
+        
 		return $out;
 	}
 }
